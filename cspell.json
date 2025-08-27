@@ -3,6 +3,7 @@
     "language": "en",
     "words": [
         "blinky",
+        "Doxyfile",
         "gpios",
         "printk"
     ],
