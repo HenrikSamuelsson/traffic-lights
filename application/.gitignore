@@ -1,6 +1,6 @@
-# editors
+# Editors
 *.swp
 *~
 
-# build
+# Build
 /build*/
