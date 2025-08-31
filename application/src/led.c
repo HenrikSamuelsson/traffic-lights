@@ -1,3 +1,9 @@
+/** 
+ * \file led.c
+ * \brief LED control implementation using either Zephyr GPIO or platform hooks.
+ * \details Doxygen documentation restored after refactor to make the API discoverable.
+ */
+
 #include "led.h"
 
 #ifdef __ZEPHYR__
@@ -16,6 +22,16 @@ __attribute__((weak)) int platform_gpio_read(void *port, uint32_t pin) {
     return 0;
 }
 
+/**
+ * \brief Initialize an LED handle for the target platform.
+ * Binds the LED to the provided port/pin and records its active level.
+ * For Zephyr, prefer traffic_light_init_specs() to pass devicetree pin specs directly.
+ * \param led Handle to initialize.
+ * \param port Platform-specific GPIO port/base pointer (Zephyr: pointer to gpio_dt_spec when 'is_dt_spec' is set).
+ * \param pin GPIO pin number or unused when passing a gpio_dt_spec.
+ * \param active_high True if logic '1' turns the LED on; false for active-low wiring.
+ * \return None
+ */
 void led_init(LED *led, void *port, uint32_t pin, bool active_high) {
     if (!led) return;
     led->active_high = active_high;
@@ -47,6 +63,11 @@ void led_init(LED *led, void *port, uint32_t pin, bool active_high) {
 #endif
 }
 
+/**
+ * \brief Turn the LED on according to its active level.
+ * \param led Handle of the LED to drive.
+ * \return None
+ */
 void led_on(LED *led) {
     if (!led) return;
 #ifdef __ZEPHYR__
@@ -57,6 +78,11 @@ void led_on(LED *led) {
 #endif
 }
 
+/**
+ * \brief Turn the LED off according to its active level.
+ * \param led Handle of the LED to drive.
+ * \return None
+ */
 void led_off(LED *led) {
     if (!led) return;
 #ifdef __ZEPHYR__
@@ -67,6 +93,11 @@ void led_off(LED *led) {
 #endif
 }
 
+/**
+ * \brief Toggle the current state of the LED.
+ * \param led Handle of the LED to toggle.
+ * \return None
+ */
 void led_toggle(LED *led) {
     if (!led) return;
 #ifdef __ZEPHYR__
