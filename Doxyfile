@@ -2133,8 +2133,7 @@ LATEX_EXTRA_STYLESHEET =
 
 LATEX_EXTRA_FILES      =    docs/saab-logo-original.png \
                             docs/saab-logo-small.png \
-                            docs/saab_metadata.tex \
-                            docs/tabu_doxygen.sty
+                            docs/saab_metadata.tex
 
 # If the PDF_HYPERLINKS tag is set to YES, the LaTeX that is generated is
 # prepared for conversion to PDF (using ps2pdf or pdflatex). The PDF file will
