@@ -74,6 +74,7 @@ $languagesupport
 \iftutex
 \else
 \usepackage[$latexfontenc]{fontenc}
+\usepackage{longtable}
 \fi
 %%END LATEX_FONTENC
 
@@ -310,6 +311,27 @@ $latexspecialformulachars
 
 % End of preamble, now comes the document contents
 %===== C O N T E N T S =====
+
+
+% --- Cleaner Doxygen "Parameters" table: 2 columns, solid borders ---
+\makeatletter
+% width for the name column (adjust if you want)
+\newlength{\ParamNameCol}
+\setlength{\ParamNameCol}{0.26\linewidth}
+\renewenvironment{DoxyParams}[1]{%
+  \par\vspace{0.6\baselineskip}%
+  \noindent\begin{longtable}{|>{\raggedright\arraybackslash}p{\ParamNameCol}|
+                                >{\raggedright\arraybackslash}p{\dimexpr\linewidth-\ParamNameCol-2\tabcolsep-2\arrayrulewidth\relax}|}
+  \hline
+  \multicolumn{2}{|l|}{\textbf{#1}}\\\hline
+  \endfirsthead
+  \hline \multicolumn{2}{|l|}{\textbf{#1} (continued)}\\\hline
+  \endhead
+}{%
+  \end{longtable}\par\vspace{0.6\baselineskip}%
+}
+\makeatother
+
 
 \begin{document}
 \raggedbottom
