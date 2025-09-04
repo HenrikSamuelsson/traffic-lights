@@ -31,12 +31,6 @@ $latex_batchmode
 \else
 \usepackage{array}[=2016-10-06]
 \fi
-% --- Doxygen LaTeX: fix tabu/array mismatch on TL2025 ---
-\makeatletter
-\providecommand\insert@pcolumn[1]{\@startpbox{#1}} % start p{<width>} cell
-\providecommand\endinsert@pcolumn{\@endpbox}       % end   p{<width>} cell
-\makeatother
-
 %%
 
 % Packages required by doxygen
@@ -147,7 +141,7 @@ $latexfont
 \usepackage{fancyhdr}
 
 % SAAB created file with meta data for the header
-\input{saab_metadata.tex}
+\input{latex_metadata.tex}
 
 % Custom page style for the SAAB T&S title page: header only
 \fancypagestyle{saabtstitlepagestyle}{
@@ -183,7 +177,7 @@ $latexfont
   \renewcommand{\footrulewidth}{0pt} % no footer line
 }
 
-% Custom page style for the SAAB T&S ordinary pages, header, footer, and page numbers
+% Custom page style for the SAAB T&S ordinary pages, header, footer, and page numbers 
 \fancypagestyle{saabtspagestyle}{
   \fancyhf{} % clear all headers and footers
 
@@ -214,7 +208,7 @@ $latexfont
   }
   \renewcommand{\headrulewidth}{0.4pt} % header line
   %% HEADER END
-
+  
   %% FOOTER START
   % Horizontal line just above the footer
   \renewcommand{\footrulewidth}{0.4pt}
