@@ -23,6 +23,7 @@
         "cxxm",
         "Defence",
         "DEPRECATEDLIST",
+        "devicetree",
         "DHTML",
         "diafile",
         "DIAFILE",
@@ -105,6 +106,7 @@
         "myproject",
         "newcommand",
         "noenv",
+        "nordicsemi",
         "nosubgrouping",
         "NSPACES",
         "outputfile",
@@ -154,7 +156,8 @@
         "usepackage",
         "vhdl",
         "VHDL",
-        "Xapian"
+        "Xapian",
+        "zephyrproject"
     ],
     "ignorePaths": [
         "**/build/**",
