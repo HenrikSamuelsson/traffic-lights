@@ -1,0 +1,16 @@
+/ {
+    aliases {
+        /* hyphens only; C macro becomes ext_green_led */
+        ext-green-led = &user_led0;
+    };
+
+    /* private gpio-leds group to avoid relying on board's /leds label */
+    user_leds: user_leds {
+        compatible = "gpio-leds";
+
+        /* External LED on P1.00, active-low (VDD -> LED -> R -> GPIO) */
+        user_led0: user_led0 {
+            gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;
+        };
+    };
+};
