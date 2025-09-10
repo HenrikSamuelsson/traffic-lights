@@ -2,6 +2,8 @@
     aliases {
         /* hyphens only; C macro becomes ext_green_led */
         ext-green-led = &user_led0;
+        ext-amber-led = &user_led1;
+        ext-red-led = &user_led2;
     };
 
     /* private gpio-leds group to avoid relying on board's /leds label */
@@ -10,7 +12,17 @@
 
         /* External LED on P1.00, active-low (VDD -> LED -> R -> GPIO) */
         user_led0: user_led0 {
-            gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;
+            gpios = <&gpio1 4 GPIO_ACTIVE_LOW>;
+        };
+
+        /* External LED on P1.00, active-low (VDD -> LED -> R -> GPIO) */
+        user_led1: user_led1 {
+            gpios = <&gpio1 5 GPIO_ACTIVE_LOW>;
+        };
+
+        /* External LED on P1.00, active-low (VDD -> LED -> R -> GPIO) */
+        user_led2: user_led2 {
+            gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
         };
     };
 };
