@@ -4,25 +4,43 @@
         ext-green-led = &user_led0;
         ext-amber-led = &user_led1;
         ext-red-led = &user_led2;
+        pedestrian-white-led = &user_led3;
+        pedestrian-green-led = &user_led4;
+        pedestrian-red-led = &user_led5;
     };
 
     /* private gpio-leds group to avoid relying on board's /leds label */
     user_leds: user_leds {
         compatible = "gpio-leds";
 
-        /* External LED on P1.00, active-low (VDD -> LED -> R -> GPIO) */
+        /* External LED on P1.04, active-low (VDD -> LED -> R -> GPIO) */
         user_led0: user_led0 {
             gpios = <&gpio1 4 GPIO_ACTIVE_LOW>;
         };
 
-        /* External LED on P1.00, active-low (VDD -> LED -> R -> GPIO) */
+        /* External LED on P1.05, active-low (VDD -> LED -> R -> GPIO) */
         user_led1: user_led1 {
             gpios = <&gpio1 5 GPIO_ACTIVE_LOW>;
         };
 
-        /* External LED on P1.00, active-low (VDD -> LED -> R -> GPIO) */
+        /* External LED on P1.06, active-low (VDD -> LED -> R -> GPIO) */
         user_led2: user_led2 {
             gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
+        };
+
+        /* External LED on P1.07, active-low (VDD -> LED -> R -> GPIO) */
+        user_led3: user_led3 {
+            gpios = <&gpio1 7 GPIO_ACTIVE_LOW>;
+        };
+
+        /* External LED on P1.08, active-low (VDD -> LED -> R -> GPIO) */
+        user_led4: user_led4 {
+            gpios = <&gpio1 8 GPIO_ACTIVE_LOW>;
+        };
+
+        /* External LED on P1.08, active-low (VDD -> LED -> R -> GPIO) */
+        user_led5: user_led5 {
+            gpios = <&gpio1 9 GPIO_ACTIVE_LOW>;
         };
     };
 };

@@ -5,26 +5,28 @@
 
 int main(void) {
 #if DT_NODE_HAS_STATUS(DT_ALIAS(ext_green_led), okay)
-  const struct gpio_dt_spec ledG =
-      GPIO_DT_SPEC_GET(DT_ALIAS(ext_green_led), gpios); // P1.04 (active-low)
-  const struct gpio_dt_spec ledA =
-      GPIO_DT_SPEC_GET(DT_ALIAS(ext_amber_led), gpios); // P1.05 (active-low)
-  const struct gpio_dt_spec ledR =
-      GPIO_DT_SPEC_GET(DT_ALIAS(ext_red_led), gpios); // P1.06 (active-low)
+  const struct gpio_dt_spec ledTG =
+      GPIO_DT_SPEC_GET(DT_ALIAS(ext_green_led), gpios);
+  const struct gpio_dt_spec ledTA =
+      GPIO_DT_SPEC_GET(DT_ALIAS(ext_amber_led), gpios);
+  const struct gpio_dt_spec ledTR =
+      GPIO_DT_SPEC_GET(DT_ALIAS(ext_red_led), gpios);
+  const struct gpio_dt_spec ledPW =
+      GPIO_DT_SPEC_GET(DT_ALIAS(pedestrian_white_led), gpios);
 
-  printk("LED G port=%s pin=%d flags=0x%lx\n", ledG.port->name, ledG.pin,
-         (unsigned long)ledG.dt_flags);
-  printk("LED A port=%s pin=%d flags=0x%lx\n", ledA.port->name, ledA.pin,
-         (unsigned long)ledA.dt_flags);
-  printk("LED R port=%s pin=%d flags=0x%lx\n", ledR.port->name, ledR.pin,
-         (unsigned long)ledR.dt_flags);
+  printk("LED G port=%s pin=%d flags=0x%lx\n", ledTG.port->name, ledTG.pin,
+         (unsigned long)ledTG.dt_flags);
+  printk("LED A port=%s pin=%d flags=0x%lx\n", ledTA.port->name, ledTA.pin,
+         (unsigned long)ledTA.dt_flags);
+  printk("LED R port=%s pin=%d flags=0x%lx\n", ledTR.port->name, ledTR.pin,
+         (unsigned long)ledTR.dt_flags);
 
-  /* Configure as plain OUTPUTs (keep your raw test style) */
+  /* Configure as plain OUTPUTs. */
   int rc = 0;
-  rc |= gpio_pin_configure(ledG.port, ledG.pin, GPIO_OUTPUT);
-  rc |= gpio_pin_configure(ledA.port, ledA.pin, GPIO_OUTPUT);
-  rc |= gpio_pin_configure(ledR.port, ledR.pin, GPIO_OUTPUT);
-  printk("cfg rc=%d\n", rc);
+  rc |= gpio_pin_configure(ledTG.port, ledTG.pin, GPIO_OUTPUT);
+  rc |= gpio_pin_configure(ledTA.port, ledTA.pin, GPIO_OUTPUT);
+  rc |= gpio_pin_configure(ledTR.port, ledTR.pin, GPIO_OUTPUT);
+  rc |= gpio_pin_configure(ledPW.port, ledPW.pin, GPIO_OUTPUT);
 
   /* Blink by forcing PHYSICAL level with *_raw() (ignore active-low) */
   /* Green: your original pattern (1500 ms on, 700 ms off) */
@@ -34,9 +36,10 @@ int main(void) {
   uint32_t r_on = 500, r_off = 500;
 
   /* Start all OFF (HIGH for active-low wiring) */
-  gpio_pin_set_raw(ledG.port, ledG.pin, 1);
-  gpio_pin_set_raw(ledA.port, ledA.pin, 1);
-  gpio_pin_set_raw(ledR.port, ledR.pin, 1);
+  gpio_pin_set_raw(ledTG.port, ledTG.pin, 1);
+  gpio_pin_set_raw(ledTA.port, ledTA.pin, 1);
+  gpio_pin_set_raw(ledTR.port, ledTR.pin, 1);
+  gpio_pin_set_raw(ledPW.port, ledPW.pin, 1);
 
   uint32_t tg = 0, ta = 0, tr = 0;
   bool g_on_phase = false, a_on_phase = false, r_on_phase = false;
@@ -51,7 +54,7 @@ int main(void) {
     if ((!g_on_phase && tg >= g_off) || (g_on_phase && tg >= g_on)) {
       g_on_phase = !g_on_phase;
       tg = 0;
-      gpio_pin_set_raw(ledG.port, ledG.pin,
+      gpio_pin_set_raw(ledTG.port, ledTG.pin,
                        g_on_phase ? 0 : 1); // LOW=ON, HIGH=OFF
     }
 
@@ -59,14 +62,15 @@ int main(void) {
     if ((!a_on_phase && ta >= a_off) || (a_on_phase && ta >= a_on)) {
       a_on_phase = !a_on_phase;
       ta = 0;
-      gpio_pin_set_raw(ledA.port, ledA.pin, a_on_phase ? 0 : 1);
+      gpio_pin_set_raw(ledTA.port, ledTA.pin, a_on_phase ? 0 : 1);
     }
 
-    /* Red */
+    /* Red and pedestrian white */
     if ((!r_on_phase && tr >= r_off) || (r_on_phase && tr >= r_on)) {
       r_on_phase = !r_on_phase;
       tr = 0;
-      gpio_pin_set_raw(ledR.port, ledR.pin, r_on_phase ? 0 : 1);
+      gpio_pin_set_raw(ledTR.port, ledTR.pin, r_on_phase ? 0 : 1);
+      gpio_pin_set_raw(ledPW.port, ledPW.pin, r_on_phase ? 0 : 1);
     }
   }
 #else
